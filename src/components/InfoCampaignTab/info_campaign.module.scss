@@ -1,3 +1,5 @@
+@import '../../styles/breakpoint';
+
 .info_name,
 .info_des {
   position: relative;
@@ -23,12 +25,17 @@
     position: relative;
     &_active,
     &:focus-visible {
+      color: #3f51b5;
       border: none;
       outline: none;
       & + .label_info {
+        color: #3f51b5;
         top: 0;
         font-size: 10px;
         line-height: 16px;
+      }
+      & + .label_info:last-child {
+        top: 4px
       }
     }
   }
@@ -48,9 +55,35 @@
 .info_name {
   margin: 8px 0 16px;
 }
+
 .info_name:has(> input:focus-visible),
 .info_des:has(> input:focus-visible) {
   &:before {
     border-bottom: 2px solid black;
+  }
+}
+.info_name:has(> span.input_error),
+.info_des:has(> span.input_error) {
+  &:before {
+    border-bottom: 2px solid red;
+  }
+}
+
+.input_error {
+  bottom: -16px;
+  position: absolute;
+  left: 0;
+  color: red;
+  font-size: 10px;
+  line-height: 16px; 
+  & + .info_name_input {
+    &:focus-visible {
+      & + .label_info {
+        color: red;
+      }
+    }
+  }
+  & + * + .label_info {
+    color: red;
   }
 }

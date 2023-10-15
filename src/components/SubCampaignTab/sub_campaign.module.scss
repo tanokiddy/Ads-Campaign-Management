@@ -103,7 +103,37 @@
 
 .form_input_cp {
   position: relative;
-  width: fit-content;
+  width: 100%;
+  &:hover {
+    &:before {
+      border-bottom: 2px solid black;
+    }
+  }
+  &:before {
+    @include xxs-screen {
+      // left: 8px;
+    }
+    content: "";
+    position: absolute;
+    bottom: 0;
+    // left: 16px;
+    border-bottom: 1px solid #999;
+    width: calc(100% - 16px);
+    transition: all 0.1s linear;
+  }
+  &:has(> input:focus-visible) {
+    &:before {
+      border-bottom: 2px solid black;
+    }
+  }
+  &:has(> span.input_error) {
+    &:before {
+      border-bottom: 2px solid red;
+    }
+  }
+  input {
+    width: 100%;
+  }
   .label_sub_cp {
     @include xxs-screen {
       font-size: 14px;
@@ -169,6 +199,11 @@
   &:has(> input:focus-visible) {
     &:before {
       border-bottom: 2px solid black;
+    }
+  }
+  &:has(> input.input_ads_error) {
+    &:before {
+      border-bottom: 2px solid red;
     }
   }
   input {
@@ -241,4 +276,31 @@
     }
     padding: 16px 0;
   }
+}
+
+.sub_cp_error {
+  color: red;
+}
+
+.input_error {
+  bottom: -16px;
+  position: absolute;
+  left: 0;
+  color: red;
+  font-size: 10px;
+  line-height: 16px; 
+  & + .input_sub_cp {
+    &:focus-visible {
+      & + .label_sub_cp {
+        color: red;
+      }
+    }
+  }
+  & + * + .label_sub_cp {
+    color: red;
+  }
+}
+
+.input_ads_error {
+  color: red;
 }

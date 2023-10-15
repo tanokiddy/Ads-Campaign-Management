@@ -6,18 +6,41 @@ import { useCamPaign } from "../contexts/CampaignContext";
 
 const Campaign = () => {
   const [isSubCampaign, setSubCampaign] = useState<boolean>(false);
-  const {campaign} = useCamPaign()
+  const [isValidated, setValidate] = useState<boolean>(true);
+  const { campaign } = useCamPaign();
+  const { name } = campaign.campaign.information;
+  const isValidatedAdsQuantity = campaign.subCampaigns.every((subCP) =>
+    subCP.ads.every((ads) => ads.quantity > 0)
+  );
+  const isValidatedAdsName = campaign.subCampaigns.every((subCP) =>
+    subCP.ads.every((ads) => !!ads.name)
+  );
+  const isValidatedCPName = campaign.subCampaigns.every(
+    (subCP) => !!subCP.name
+  );
+  const isValidatedAllField =
+    name && isValidatedAdsQuantity && isValidatedAdsName && isValidatedCPName;
   const handleSubmit = () => {
-    alert(JSON.stringify(campaign))
-  }
-  
+    if (isValidatedAllField) {
+      setValidate(true);
+      alert(JSON.stringify(campaign));
+    } else {
+      alert("Vui lòng điền đúng và đầy đủ thông tin");
+      setValidate(false);
+    }
+  };
+
   return (
     <>
-      <button onClick={handleSubmit} className={css.button_submit}>Submit</button>
+      <button onClick={handleSubmit} className={css.button_submit}>
+        Submit
+      </button>
       <div className={css.campaign_container}>
         <div className={css.campaign_tabs_container}>
           <button
-            className={`${!isSubCampaign ? css.isActive : ""} ${css.campaign_tab}`}
+            className={`${!isSubCampaign ? css.isActive : ""} ${
+              css.campaign_tab
+            }`}
             onClick={() => {
               setSubCampaign(false);
             }}
@@ -25,7 +48,9 @@ const Campaign = () => {
             THÔNG TIN
           </button>
           <button
-            className={`${isSubCampaign ? css.isActive : ""} ${css.campaign_tab}`}
+            className={`${isSubCampaign ? css.isActive : ""} ${
+              css.campaign_tab
+            }`}
             onClick={() => {
               setSubCampaign(true);
             }}
@@ -33,7 +58,11 @@ const Campaign = () => {
             CHIẾN DỊCH CON
           </button>
         </div>
-        {isSubCampaign ? <SubCampaignTab /> : <InfoCampaignTab />}
+        {isSubCampaign ? (
+          <SubCampaignTab isValidated={isValidated} />
+        ) : (
+          <InfoCampaignTab isValidated={isValidated}/>
+        )}
       </div>
     </>
   );

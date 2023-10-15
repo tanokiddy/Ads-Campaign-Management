@@ -3,7 +3,11 @@ import { useCamPaign } from "../../../contexts/CampaignContext";
 import css from "../sub_campaign.module.scss";
 import { TrashIcon } from "../../../icons";
 
-const AdsComponent: React.FC = () => {
+interface IAdsComponentProps {
+  isValidated: boolean;
+}
+
+const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
   const { campaign, setCampaign, activeSubCampaign, setActiveSubCampaign } =
     useCamPaign();
   const [checkedAds, setCheckedAds] = useState<number[]>([]);
@@ -113,6 +117,11 @@ const AdsComponent: React.FC = () => {
     }
   };
 
+  const isValidatedAdsName = activeSubCampaign.ads.every((ads) => !!ads.name);
+  const isValidatedAdsQuantity = activeSubCampaign.ads.every(
+    (ads) => !!ads.quantity
+  );
+
   return (
     <div className={css.ads_container}>
       <h2>DANH SÁCH QUẢNG CÁO</h2>
@@ -130,7 +139,10 @@ const AdsComponent: React.FC = () => {
             </th>
             <th>
               {checkedAds.length > 0 ? (
-                <button onClick={handleDeleteMultiAds} className={css.btn_delete}>
+                <button
+                  onClick={handleDeleteMultiAds}
+                  className={css.btn_delete}
+                >
                   <TrashIcon />
                 </button>
               ) : (
@@ -163,21 +175,31 @@ const AdsComponent: React.FC = () => {
                   }}
                 />
               </td>
-              <td className={css.ads_item_input}>
+              <td className={`${css.ads_item_input} `}>
                 <input
                   id="ads_name"
                   type="text"
                   value={item.name}
                   onChange={(e) => handleChangeAdsName(e, item.id)}
+                  className={
+                    !isValidated && !isValidatedAdsName
+                      ? css.input_ads_error
+                      : ""
+                  }
                 />
               </td>
-              <td className={css.ads_item_input}>
+              <td className={`${css.ads_item_input}`}>
                 <input
                   id="ads_quantity"
                   type="number"
                   min={0}
                   value={item.quantity}
                   onChange={(e) => handleChangeAdsName(e, item.id)}
+                  className={
+                    !isValidated && !isValidatedAdsQuantity
+                      ? css.input_ads_error
+                      : ""
+                  }
                 />
               </td>
               <td>

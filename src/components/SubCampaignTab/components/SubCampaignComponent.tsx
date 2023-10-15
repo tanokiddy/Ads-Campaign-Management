@@ -4,10 +4,16 @@ import { useCamPaign } from "../../../contexts/CampaignContext";
 import { ISubCamPaign } from "@/types";
 import { CheckIcon } from "../../../icons";
 
-const SubCampaignComponent: React.FC = () => {
+interface ISubCampaignComponentProps {
+  isValidated: boolean;
+}
 
-  const {campaign, setCampaign, activeSubCampaign, setActiveSubCampaign} = useCamPaign()
-  let newCampaign = {...campaign};
+const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
+  isValidated,
+}) => {
+  const { campaign, setCampaign, activeSubCampaign, setActiveSubCampaign } =
+    useCamPaign();
+  let newCampaign = { ...campaign };
   let newActiveSubCP = { ...activeSubCampaign };
 
   const isCPActive = (subCampaign: ISubCamPaign) => {
@@ -34,9 +40,7 @@ const SubCampaignComponent: React.FC = () => {
     setActiveSubCampaign(newActiveSubCP);
   };
 
-  const handleChangeCheckBox = (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newStatus = e.target.checked;
     newActiveSubCP.status = newStatus;
     newCampaign.subCampaigns.map((item) => {
@@ -51,7 +55,7 @@ const SubCampaignComponent: React.FC = () => {
   };
 
   const handleAddCampaign = () => {
-    let adsCount = new Array(1)
+    let adsCount = new Array(1);
     newCampaign.subCampaigns.push({
       name: `Chiến dịch con ${newCampaign.subCampaigns.length + 1}`,
       ads: [
@@ -64,11 +68,18 @@ const SubCampaignComponent: React.FC = () => {
       status: true,
       id: newCampaign.subCampaigns.length + 1,
     });
-    setCampaign(newCampaign)
+    setCampaign(newCampaign);
   };
 
   const handleSetActiveSubCP = (item: ISubCamPaign) => {
     setActiveSubCampaign(item);
+  };
+
+  const handleIsValidatedAllField = (subCP: ISubCamPaign):boolean => {
+    const isValidatedAdsName = subCP.ads.every((ads) => !!ads.name);
+    const isValidatedAdsQuantity = subCP.ads.every((ads) => !!ads.quantity);
+    console.log('!!subCP.name && isValidatedAdsName && isValidatedAdsQuantity: ', !!subCP.name && isValidatedAdsName && isValidatedAdsQuantity);
+    return !!subCP.name && isValidatedAdsName && isValidatedAdsQuantity;
   };
 
   return (
@@ -87,9 +98,17 @@ const SubCampaignComponent: React.FC = () => {
               onClick={() => handleSetActiveSubCP(item)}
             >
               <div className={css.sub_cp_info}>
-                <span className={css.sub_cp_name}>{item.name}</span>
+                <span
+                  className={`${css.sub_cp_name} ${
+                    !isValidated && !handleIsValidatedAllField(item)
+                      ? css.sub_cp_error
+                      : ""
+                  }`}
+                >
+                  {item.name}
+                </span>
                 <span className={css.sub_cp_status}>
-                  <CheckIcon color={item.status ? "#4FBA69" : ""}/>
+                  <CheckIcon color={item.status ? "#4FBA69" : ""} />
                 </span>
               </div>
               <div className={css.sub_cp_ads}>{handleTotalAds(item)}</div>
@@ -99,6 +118,11 @@ const SubCampaignComponent: React.FC = () => {
       </div>
       <div className={css.sub_cp_item_line2}>
         <div className={css.form_input_cp}>
+          {!isValidated && !activeSubCampaign.name ? (
+            <span className={css.input_error}>Dữ liệu không hợp lệ</span>
+          ) : (
+            null
+          )}
           <input
             className={`${css.input_sub_cp} ${
               activeSubCampaign.name ? css.input_sub_cp_active : ""

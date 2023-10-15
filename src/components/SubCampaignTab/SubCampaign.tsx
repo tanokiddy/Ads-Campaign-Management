@@ -1,11 +1,15 @@
 import AdsComponent from "./components/AdsComponent";
 import SubCampaignComponent from "./components/SubCampaignComponent";
 
-const SubCampaign = () => {
+interface ISubCampaignProps {
+  isValidated: boolean
+}
+
+const SubCampaign = ({isValidated}: ISubCampaignProps) => {
   return (
     <div className="container">
-      <SubCampaignComponent />
-      <AdsComponent />
+      <SubCampaignComponent isValidated={isValidated}/>
+      <AdsComponent isValidated={isValidated}/>
     </div>
   );
 };
