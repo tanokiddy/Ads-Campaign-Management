@@ -1,3 +1,3 @@
 import TrashIcon from "./TrashIcon";
-
-export { TrashIcon };
+import CheckIcon from "./CheckIcon";
+export { TrashIcon, CheckIcon };

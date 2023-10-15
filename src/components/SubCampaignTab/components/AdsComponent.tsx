@@ -130,14 +130,16 @@ const AdsComponent: React.FC = () => {
             </th>
             <th>
               {checkedAds.length > 0 ? (
-                <button onClick={handleDeleteMultiAds}>
-                  <TrashIcon/>
+                <button onClick={handleDeleteMultiAds} className={css.btn_delete}>
+                  <TrashIcon />
                 </button>
               ) : (
-                "Tên quảng cáo *"
+                <span>Tên quảng cáo *</span>
               )}
             </th>
-            <th>{checkedAds.length > 0 ? "" : "Số lượng *"}</th>
+            <th>
+              <span>{checkedAds.length > 0 ? "" : "Số lượng *"}</span>
+            </th>
             <th>
               <button className={css.btn_add_ads} onClick={handleAddAds}>
                 + THÊM
@@ -149,9 +151,7 @@ const AdsComponent: React.FC = () => {
           {activeSubCampaign.ads.map((item, index) => (
             <tr
               key={index}
-              className={`${handleIsChecked(item.id) ? css.checked : ""} ${
-                css.ads_item
-              }`}
+              className={`${handleIsChecked(item.id) ? css.checked : ""}`}
             >
               <td>
                 <input
@@ -163,7 +163,7 @@ const AdsComponent: React.FC = () => {
                   }}
                 />
               </td>
-              <td>
+              <td className={css.ads_item_input}>
                 <input
                   id="ads_name"
                   type="text"
@@ -171,7 +171,7 @@ const AdsComponent: React.FC = () => {
                   onChange={(e) => handleChangeAdsName(e, item.id)}
                 />
               </td>
-              <td>
+              <td className={css.ads_item_input}>
                 <input
                   id="ads_quantity"
                   type="number"
@@ -182,6 +182,7 @@ const AdsComponent: React.FC = () => {
               </td>
               <td>
                 <button
+                  className={css.btn_delete}
                   disabled={checkedAds.length > 0}
                   onClick={() => handleDeleteAds(item.id)}
                 >

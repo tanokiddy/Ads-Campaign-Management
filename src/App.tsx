@@ -1,6 +1,6 @@
 import { CampaignProvider } from "./contexts/CampaignContext";
 import Campaign from "./components/Campaign";
-import "./App.css";
+import './styles/main.scss'
 
 function App() {
   return (

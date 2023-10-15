@@ -42,6 +42,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: center;
     overflow: hidden;
     .sub_cp_name {
       @include xxs-screen {
@@ -55,14 +56,6 @@
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-    }
-    .sub_cp_status {
-      @include xxs-screen {
-        font-size: 6px;
-        line-height: 10px;
-      }
-      font-size: 12x;
-      line-height: 16px;
     }
   }
   .sub_cp_ads {
@@ -91,6 +84,9 @@
     align-items: center;
     gap: 10px;
     flex-direction: row-reverse;
+    label {
+      user-select: none;
+    }
   }
 }
 
@@ -113,9 +109,9 @@
       font-size: 14px;
       line-height: 18px;
     }
-    position: absolute;
     font-size: 16px;
     line-height: 24px;
+    position: absolute;
     top: 50%;
     transform: translate(0, -50%);
     left: 0;
@@ -123,8 +119,11 @@
   }
   .input_sub_cp {
     @include xxs-screen {
-      padding: 8px 0;
+      font-size: 14px;
+      line-height: 18px;
     }
+    font-size: 16px;
+    line-height: 24px;
     padding: 16px;
     width: 100%;
     border-radius: 8px;
@@ -148,15 +147,7 @@
   }
 }
 
-.btn_add_ads {
-  &:hover {
-    border: 1px solid #3f51b5;
-    background-color: rgba(63, 81, 181, 0.04);
-  }
-  color: #3f51b5;
-}
-
-.ads_item {
+.ads_item_input {
   position: relative;
   &:hover {
     &:before {
@@ -164,24 +155,41 @@
     }
   }
   &:before {
+    @include xxs-screen {
+      left: 8px;
+    }
     content: "";
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 16px;
     border-bottom: 1px solid #999;
-    width: 100%;
+    width: calc(100% - 16px);
     transition: all 0.1s linear;
   }
-  &:has(> td > input:focus-visible) {
+  &:has(> input:focus-visible) {
     &:before {
       border-bottom: 2px solid black;
     }
+  }
+  input {
+    width: 100%;
   }
 }
 
 .ads_table {
   border-spacing: 0;
   width: 100%;
+  thead {
+    th {
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
   th,
   td,
   input {
@@ -193,8 +201,40 @@
     line-height: 24px;
   }
   .btn_add_ads {
-    color: #3f51b5;
-    border: 1px solid #3f51b5;
+    @include xxs-screen {
+      padding: 4px 8px;
+    }
     padding: 8px 16px;
+    color: #3f51b5;
+    text-wrap: nowrap;
+    border: 1px solid #3f51b5;
+    &:hover {
+      background-color: rgba(63, 81, 181, 0.04);
+    }
+  }
+  .btn_delete {
+    svg {
+      @include xxs-screen {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+  td,
+  th {
+    @include xxs-screen {
+      padding-left: 8px;
+    }
+    text-align: left;
+    padding-left: 16px;
+    &:last-child {
+      text-align: center;
+    }
+  }
+  input {
+    @include xxs-screen {
+      padding: 8px 0;
+    }
+    padding: 16px 0;
   }
 }

@@ -1,4 +1,9 @@
+@import './breakpoint';
+
 .container {
+  @include xxs-screen {
+    padding: 8px;
+  }
   padding: 16px;
 }
 main {

@@ -11,7 +11,7 @@
   height: 2px;
   width: 100%;
   background-color: blue;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
 }
 
 .campaign_tabs_container {
@@ -26,6 +26,11 @@
 .button_submit {
   border: 1px solid #999;
   margin: 30px 0;
+  &:active {
+    background-color: #3f51b5;
+    color: white;
+    border: 1px solid transparent;
+  }
 }
 
 .campaign_container {

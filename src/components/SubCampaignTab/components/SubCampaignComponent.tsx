@@ -2,6 +2,7 @@ import React from "react";
 import css from "../sub_campaign.module.scss";
 import { useCamPaign } from "../../../contexts/CampaignContext";
 import { ISubCamPaign } from "@/types";
+import { CheckIcon } from "../../../icons";
 
 const SubCampaignComponent: React.FC = () => {
 
@@ -90,7 +91,7 @@ const SubCampaignComponent: React.FC = () => {
               <div className={css.sub_cp_info}>
                 <span className={css.sub_cp_name}>{item.name}</span>
                 <span className={css.sub_cp_status}>
-                  {item.status.toString()}
+                  <CheckIcon color={item.status ? "#008000" : ""}/>
                 </span>
               </div>
               <div className={css.sub_cp_ads}>{handleTotalAds(item)}</div>
