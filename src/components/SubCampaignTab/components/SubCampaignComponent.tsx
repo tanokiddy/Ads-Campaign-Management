@@ -36,10 +36,8 @@ const SubCampaignComponent: React.FC = () => {
 
   const handleChangeCheckBox = (
     e: React.ChangeEvent<HTMLInputElement>,
-    // activeSubCampaign: ISubCamPaign
   ) => {
     const newStatus = e.target.checked;
-    // const newActiveSubCP = { ...activeSubCampaign };
     newActiveSubCP.status = newStatus;
     newCampaign.subCampaigns.map((item) => {
       if (item.id === newActiveSubCP.id) {
@@ -91,7 +89,7 @@ const SubCampaignComponent: React.FC = () => {
               <div className={css.sub_cp_info}>
                 <span className={css.sub_cp_name}>{item.name}</span>
                 <span className={css.sub_cp_status}>
-                  <CheckIcon color={item.status ? "#008000" : ""}/>
+                  <CheckIcon color={item.status ? "#4FBA69" : ""}/>
                 </span>
               </div>
               <div className={css.sub_cp_ads}>{handleTotalAds(item)}</div>
