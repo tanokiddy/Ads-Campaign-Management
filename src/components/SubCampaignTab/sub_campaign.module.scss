@@ -1,4 +1,4 @@
-@import '../../styles/breakpoint'; 
+@import "../../styles/breakpoint";
 
 .button_add_cp {
   border-radius: 50%;
@@ -105,59 +105,6 @@
   }
 }
 
-table {
-  width: 100%;
-  border-spacing: 0;
-  td,
-  th {
-    &:last-child {
-      button {
-        text-wrap: nowrap;
-      }
-    }
-    @include xxs-screen {
-      font-size: 8px;
-      line-height: 12px;
-      text-align: center;
-    }
-    text-align: left;
-    font-size: 16px;
-    line-height: 24px;
-  }
-  th {
-    @include xxs-screen {
-      padding: 0 8px;
-    }
-    padding: 0 16px;
-  }
-  input {
-    @include xxs-screen {
-      font-size: 8px;
-      line-height: 12px;
-      padding: 8px;
-    }
-    font-size: 16px;
-    line-height: 24px;
-    padding: 16px;
-    border-radius: 4px;
-    width: 100%;
-  }
-  button {
-    @include xxs-screen {
-      padding: 4px 8px;
-      margin-right: 0;
-      font-size: 8px;
-      line-height: 12px;
-    }
-    font-size: 16px;
-    line-height: 24px;
-    margin-right: 16px;
-    padding: 8px 16px;
-    border: 1px solid #999;
-    border-radius: 4px;
-  }
-}
-
 .form_input_cp {
   position: relative;
   width: fit-content;
@@ -196,7 +143,58 @@ table {
 
 .checked {
   background-color: rgba(245, 0, 87, 0.08);
-  button {
-    cursor: unset;
+  input {
+    background-color: inherit;
+  }
+}
+
+.btn_add_ads {
+  &:hover {
+    border: 1px solid #3f51b5;
+    background-color: rgba(63, 81, 181, 0.04);
+  }
+  color: #3f51b5;
+}
+
+.ads_item {
+  position: relative;
+  &:hover {
+    &:before {
+      border-bottom: 2px solid black;
+    }
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-bottom: 1px solid #999;
+    width: 100%;
+    transition: all 0.1s linear;
+  }
+  &:has(> td > input:focus-visible) {
+    &:before {
+      border-bottom: 2px solid black;
+    }
+  }
+}
+
+.ads_table {
+  border-spacing: 0;
+  width: 100%;
+  th,
+  td,
+  input {
+    @include xxs-screen {
+      font-size: 12px;
+      line-height: 16px;
+    }
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .btn_add_ads {
+    color: #3f51b5;
+    border: 1px solid #3f51b5;
+    padding: 8px 16px;
   }
 }

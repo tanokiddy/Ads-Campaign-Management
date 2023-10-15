@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useCamPaign } from "../../../contexts/CampaignContext";
 import css from "../sub_campaign.module.scss";
+import { TrashIcon } from "../../../icons";
 
 const AdsComponent: React.FC = () => {
   const { campaign, setCampaign, activeSubCampaign, setActiveSubCampaign } =
     useCamPaign();
   const [checkedAds, setCheckedAds] = useState<number[]>([]);
 
-  const isCheckBoxAll = activeSubCampaign.ads.length > 0 && checkedAds.length === activeSubCampaign.ads.length
+  const isCheckBoxAll =
+    activeSubCampaign.ads.length > 0 &&
+    checkedAds.length === activeSubCampaign.ads.length;
 
   let newActiveSubCP = { ...activeSubCampaign };
   let newCampaign = { ...campaign };
@@ -45,7 +48,7 @@ const AdsComponent: React.FC = () => {
     setCampaign(newCampaign);
   };
   const handleAddAds = () => {
-    const adsCount = new Array(activeSubCampaign.ads.length + 1)
+    const adsCount = new Array(activeSubCampaign.ads.length + 1);
     newActiveSubCP.ads.push({
       name: `Quảng cáo ${adsCount.length}`,
       quantity: 0,
@@ -78,7 +81,9 @@ const AdsComponent: React.FC = () => {
   };
   const handleDeleteMultiAds = () => {
     for (let i = checkedAds.length - 1; i >= 0; i--) {
-      const idx = newActiveSubCP.ads.findIndex(item => item.id === checkedAds[i])
+      const idx = newActiveSubCP.ads.findIndex(
+        (item) => item.id === checkedAds[i]
+      );
       newActiveSubCP.ads.splice(idx, 1);
     }
     setCheckedAds([]);
@@ -99,40 +104,55 @@ const AdsComponent: React.FC = () => {
   const handleIsChecked = (adsId: number) => {
     return checkedAds.some((item) => item === adsId);
   };
-  const handleCheckAllAds = (e:React.ChangeEvent<HTMLInputElement>) => {
-    if(e.target.checked) {
-      newCheckedAds = newActiveSubCP.ads.map(item => item.id)
-      setCheckedAds(newCheckedAds)
+  const handleCheckAllAds = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      newCheckedAds = newActiveSubCP.ads.map((item) => item.id);
+      setCheckedAds(newCheckedAds);
     } else {
-      setCheckedAds([])
+      setCheckedAds([]);
     }
-  }
+  };
 
   return (
     <div className={css.ads_container}>
       <h2>DANH SÁCH QUẢNG CÁO</h2>
-      <table>
+      <table className={css.ads_table}>
         <thead>
           <tr>
             <th>
-              <input checked={isCheckBoxAll} type="checkbox" onChange={(e) => {handleCheckAllAds(e)}}/>
+              <input
+                checked={isCheckBoxAll}
+                type="checkbox"
+                onChange={(e) => {
+                  handleCheckAllAds(e);
+                }}
+              />
             </th>
             <th>
               {checkedAds.length > 0 ? (
-                <button onClick={handleDeleteMultiAds}>Empty</button>
+                <button onClick={handleDeleteMultiAds}>
+                  <TrashIcon/>
+                </button>
               ) : (
                 "Tên quảng cáo *"
               )}
             </th>
             <th>{checkedAds.length > 0 ? "" : "Số lượng *"}</th>
             <th>
-              <button onClick={handleAddAds}>+ THÊM</button>
+              <button className={css.btn_add_ads} onClick={handleAddAds}>
+                + THÊM
+              </button>
             </th>
           </tr>
         </thead>
         <tbody>
           {activeSubCampaign.ads.map((item, index) => (
-            <tr key={index} className={`${handleIsChecked(item.id) ? css.checked : ""}`}>
+            <tr
+              key={index}
+              className={`${handleIsChecked(item.id) ? css.checked : ""} ${
+                css.ads_item
+              }`}
+            >
               <td>
                 <input
                   checked={handleIsChecked(item.id)}
@@ -161,7 +181,12 @@ const AdsComponent: React.FC = () => {
                 />
               </td>
               <td>
-                <button disabled={checkedAds.length > 0} onClick={() => handleDeleteAds(item.id)}>Empty</button>
+                <button
+                  disabled={checkedAds.length > 0}
+                  onClick={() => handleDeleteAds(item.id)}
+                >
+                  <TrashIcon />
+                </button>
               </td>
             </tr>
           ))}
