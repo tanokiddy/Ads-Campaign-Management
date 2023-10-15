@@ -79,12 +79,12 @@ const SubCampaignComponent: React.FC = () => {
           +
         </button>
         <div className={css.sub_cp_container}>
-          {campaign.subCampaigns.map((item) => (
+          {campaign.subCampaigns.map((item, index) => (
             <div
               className={`${css.sub_cp_item} ${
                 isCPActive(item) ? css.sub_cp_item_active : ""
               }`}
-              key={item.name}
+              key={index}
               onClick={() => handleSetActiveSubCP(item)}
             >
               <div className={css.sub_cp_info}>

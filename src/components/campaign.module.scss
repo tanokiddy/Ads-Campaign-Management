@@ -1,36 +1,31 @@
-button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: transparent;
-}
-
-button:focus-visible {
-  border: none;
-  outline: none;
-}
-
 .isActive {
   position: relative;
+  color: blue;
 }
+
 .isActive::before {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
   height: 2px;
+  width: 100%;
   background-color: blue;
+  transition: all .3s linear;
 }
 
-.campaign_tabs {
+.campaign_tabs_container {
   display: flex;
   align-items: center;
   gap: 10px;
+  .campaign_tab {
+    padding: 16px;
+  }
 }
 
 .button_submit {
   border: 1px solid #999;
-  margin-bottom: 30px;
+  margin: 30px 0;
 }
 
 .campaign_container {

@@ -131,8 +131,8 @@ const AdsComponent: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {activeSubCampaign.ads.map((item) => (
-            <tr key={item.id} className={`${handleIsChecked(item.id) ? css.checked : ""}`}>
+          {activeSubCampaign.ads.map((item, index) => (
+            <tr key={index} className={`${handleIsChecked(item.id) ? css.checked : ""}`}>
               <td>
                 <input
                   checked={handleIsChecked(item.id)}
@@ -161,7 +161,7 @@ const AdsComponent: React.FC = () => {
                 />
               </td>
               <td>
-                <button disabled={handleIsChecked(item.id)} onClick={() => handleDeleteAds(item.id)}>Empty</button>
+                <button disabled={checkedAds.length > 0} onClick={() => handleDeleteAds(item.id)}>Empty</button>
               </td>
             </tr>
           ))}

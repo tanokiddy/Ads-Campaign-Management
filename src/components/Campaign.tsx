@@ -15,9 +15,9 @@ const Campaign = () => {
     <>
       <button onClick={handleSubmit} className={css.button_submit}>Submit</button>
       <div className={css.campaign_container}>
-        <div className={css.campaign_tabs}>
+        <div className={css.campaign_tabs_container}>
           <button
-            className={`${!isSubCampaign ? css.isActive : ""}`}
+            className={`${!isSubCampaign ? css.isActive : ""} ${css.campaign_tab}`}
             onClick={() => {
               setSubCampaign(false);
             }}
@@ -25,7 +25,7 @@ const Campaign = () => {
             THÔNG TIN
           </button>
           <button
-            className={`${isSubCampaign ? css.isActive : ""}`}
+            className={`${isSubCampaign ? css.isActive : ""} ${css.campaign_tab}`}
             onClick={() => {
               setSubCampaign(true);
             }}

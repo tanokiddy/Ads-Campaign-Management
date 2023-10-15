@@ -1,7 +1,9 @@
+@import '../../styles/breakpoint'; 
+
 .button_add_cp {
   border-radius: 50%;
   color: red;
-  background-color: #999;
+  background-color: rgb(237, 237, 237);
   font-size: 16px;
   line-height: 24px;
 }
@@ -11,14 +13,18 @@
   align-items: center;
   gap: 10px;
   overflow: auto;
+  padding: 16px 0;
 }
 
 .sub_cp_container {
   display: flex;
   gap: 10px;
   .sub_cp_item {
-     min-width: 215px;
-    // width: 100%;
+    @include xxs-screen {
+      min-width: 180px;
+      padding: 8px;
+    }
+    min-width: 215px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -38,6 +44,12 @@
     align-items: center;
     overflow: hidden;
     .sub_cp_name {
+      @include xxs-screen {
+        font-size: 12px;
+        line-height: 16px;
+      }
+      font-size: 16px;
+      line-height: 24px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -45,7 +57,11 @@
       -webkit-box-orient: vertical;
     }
     .sub_cp_status {
-      font-size: 10px;
+      @include xxs-screen {
+        font-size: 6px;
+        line-height: 10px;
+      }
+      font-size: 12x;
       line-height: 16px;
     }
   }
@@ -63,6 +79,13 @@
   margin-top: 30px;
   gap: 10px;
   .form_status {
+    @include xxs-screen {
+      min-width: unset;
+      font-size: 12px;
+      line-height: 16px;
+    }
+    font-size: 16px;
+    line-height: 24px;
     min-width: 200px;
     display: flex;
     align-items: center;
@@ -74,6 +97,10 @@
 .ads_container {
   margin-top: 30px;
   h2 {
+    @include xxs-screen {
+      font-size: 16px;
+      line-height: 24px;
+    }
     margin-bottom: 16px;
   }
 }
@@ -83,17 +110,32 @@ table {
   border-spacing: 0;
   td,
   th {
-    text-align: left;
     &:last-child {
-      text-align: right;
+      button {
+        text-wrap: nowrap;
+      }
     }
+    @include xxs-screen {
+      font-size: 8px;
+      line-height: 12px;
+      text-align: center;
+    }
+    text-align: left;
     font-size: 16px;
     line-height: 24px;
   }
   th {
+    @include xxs-screen {
+      padding: 0 8px;
+    }
     padding: 0 16px;
   }
   input {
+    @include xxs-screen {
+      font-size: 8px;
+      line-height: 12px;
+      padding: 8px;
+    }
     font-size: 16px;
     line-height: 24px;
     padding: 16px;
@@ -101,6 +143,14 @@ table {
     width: 100%;
   }
   button {
+    @include xxs-screen {
+      padding: 4px 8px;
+      margin-right: 0;
+      font-size: 8px;
+      line-height: 12px;
+    }
+    font-size: 16px;
+    line-height: 24px;
     margin-right: 16px;
     padding: 8px 16px;
     border: 1px solid #999;
@@ -110,17 +160,24 @@ table {
 
 .form_input_cp {
   position: relative;
-  width: 100%;
+  width: fit-content;
   .label_sub_cp {
+    @include xxs-screen {
+      font-size: 14px;
+      line-height: 18px;
+    }
     position: absolute;
     font-size: 16px;
     line-height: 24px;
     top: 50%;
     transform: translate(0, -50%);
-    left: 16px;
+    left: 0;
     transition: all 0.1s linear;
   }
   .input_sub_cp {
+    @include xxs-screen {
+      padding: 8px 0;
+    }
     padding: 16px;
     width: 100%;
     border-radius: 8px;
@@ -130,8 +187,8 @@ table {
       outline: none;
       & + .label_sub_cp {
         top: 0;
-        font-size: 10px;
-        line-height: 16px;
+        font-size: 8px;
+        line-height: 12px;
       }
     }
   }
