@@ -10,7 +10,7 @@ interface IAdsComponentProps {
 const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
   const { campaign, setCampaign, activeSubCampaign, setActiveSubCampaign } =
     useCamPaign();
-  const [checkedAds, setCheckedAds] = useState<number[]>([]);
+  const [checkedAds, setCheckedAds] = useState<string[]>([]);
 
   const isCheckBoxAll =
     activeSubCampaign.ads.length > 0 &&
@@ -22,19 +22,19 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
 
   const handleChangeAdsName = (
     e: React.ChangeEvent<HTMLInputElement>,
-    adsId: number
+    adsName: string
   ) => {
     const isNameInput = e.target.getAttribute("id") === "ads_name";
     const newAdsProp = e.target.value;
     newActiveSubCP.ads.map((item) => {
       if (isNameInput) {
-        if (item.id === adsId) {
+        if (item.name === adsName) {
           return (item.name = newAdsProp);
         } else {
           return item;
         }
       } else {
-        if (item.id === adsId) {
+        if (item.name === adsName) {
           return (item.quantity = Number(newAdsProp));
         } else {
           return item;
@@ -56,10 +56,10 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
     newActiveSubCP.ads.push({
       name: `Quảng cáo ${adsCount.length}`,
       quantity: 0,
-      id: adsCount.length,
+      // id: adsCount.length,
     });
     newCampaign.subCampaigns.map((item) => {
-      if (item.id === newActiveSubCP.id) {
+      if (item.name === newActiveSubCP.name) {
         return (item.ads = newActiveSubCP.ads);
       } else {
         return item;
@@ -68,12 +68,12 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
     setActiveSubCampaign(newActiveSubCP);
     setCampaign(newCampaign);
   };
-  const handleDeleteAds = (adsId: number) => {
-    const idx = newActiveSubCP.ads.findIndex((item) => item.id === adsId);
+  const handleDeleteAds = (adsName: string) => {
+    const idx = newActiveSubCP.ads.findIndex((item) => item.name === adsName);
     newActiveSubCP.ads.splice(idx, 1);
-    newCheckedAds = newCheckedAds.filter((item) => item !== adsId);
+    newCheckedAds = newCheckedAds.filter((item) => item !== adsName);
     newCampaign.subCampaigns.map((item) => {
-      if (item.id === newActiveSubCP.id) {
+      if (item.name === newActiveSubCP.name) {
         return (item.ads = newActiveSubCP.ads);
       } else {
         return item;
@@ -86,7 +86,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
   const handleDeleteMultiAds = () => {
     for (let i = checkedAds.length - 1; i >= 0; i--) {
       const idx = newActiveSubCP.ads.findIndex(
-        (item) => item.id === checkedAds[i]
+        (item) => item.name === checkedAds[i]
       );
       newActiveSubCP.ads.splice(idx, 1);
     }
@@ -95,22 +95,22 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
   };
   const handleAddCheckedAds = (
     e: React.ChangeEvent<HTMLInputElement>,
-    adsId: number
+    adsName: string
   ) => {
     if (e.target.checked) {
-      newCheckedAds.push(adsId);
+      newCheckedAds.push(adsName);
       setCheckedAds(newCheckedAds);
     } else {
-      newCheckedAds = newCheckedAds.filter((item) => item !== adsId);
+      newCheckedAds = newCheckedAds.filter((item) => item !== adsName);
       setCheckedAds(newCheckedAds);
     }
   };
-  const handleIsChecked = (adsId: number) => {
-    return checkedAds.some((item) => item === adsId);
+  const handleIsChecked = (adsName: string) => {
+    return checkedAds.some((item) => item === adsName);
   };
   const handleCheckAllAds = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
-      newCheckedAds = newActiveSubCP.ads.map((item) => item.id);
+      newCheckedAds = newActiveSubCP.ads.map((item) => item.name);
       setCheckedAds(newCheckedAds);
     } else {
       setCheckedAds([]);
@@ -162,15 +162,15 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
           {activeSubCampaign.ads.map((item, index) => (
             <tr
               key={index}
-              className={`${handleIsChecked(item.id) ? css.checked : ""}`}
+              className={`${handleIsChecked(item.name) ? css.checked : ""}`}
             >
               <td>
                 <input
-                  checked={handleIsChecked(item.id)}
+                  checked={handleIsChecked(item.name)}
                   type="checkbox"
                   id="ads_checkbox"
                   onChange={(e) => {
-                    handleAddCheckedAds(e, item.id);
+                    handleAddCheckedAds(e, item.name);
                   }}
                 />
               </td>
@@ -179,7 +179,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
                   id="ads_name"
                   type="text"
                   value={item.name}
-                  onChange={(e) => handleChangeAdsName(e, item.id)}
+                  onChange={(e) => handleChangeAdsName(e, item.name)}
                   className={
                     !isValidated && !item.name
                       ? css.input_ads_error
@@ -193,7 +193,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
                   type="number"
                   min={0}
                   value={item.quantity}
-                  onChange={(e) => handleChangeAdsName(e, item.id)}
+                  onChange={(e) => handleChangeAdsName(e, item.name)}
                   className={
                     !isValidated && !isValidatedAdsQuantity
                       ? css.input_ads_error
@@ -205,7 +205,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
                 <button
                   className={css.btn_delete}
                   disabled={checkedAds.length > 0}
-                  onClick={() => handleDeleteAds(item.id)}
+                  onClick={() => handleDeleteAds(item.name)}
                 >
                   <TrashIcon />
                 </button>

@@ -9,8 +9,12 @@ const Campaign = () => {
   const [isValidated, setValidate] = useState<boolean>(true);
   const { campaign } = useCamPaign();
   const { name } = campaign.campaign.information;
-  const isValidatedAdsQuantity = campaign.subCampaigns.every((subCP) =>
-    subCP.ads.every((ads) => ads.quantity > 0)
+  const isValidatedAdsQuantity = campaign.subCampaigns.every(
+    (subCP) =>
+      subCP.ads.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.quantity,
+        0
+      ) > 0
   );
   const isValidatedAdsName = campaign.subCampaigns.every((subCP) =>
     subCP.ads.every((ads) => !!ads.name)
@@ -20,6 +24,7 @@ const Campaign = () => {
   );
   const isValidatedAllField =
     name && isValidatedAdsQuantity && isValidatedAdsName && isValidatedCPName;
+
   const handleSubmit = () => {
     if (isValidatedAllField) {
       setValidate(true);
@@ -61,7 +66,7 @@ const Campaign = () => {
         {isSubCampaign ? (
           <SubCampaignTab isValidated={isValidated} />
         ) : (
-          <InfoCampaignTab isValidated={isValidated}/>
+          <InfoCampaignTab isValidated={isValidated} />
         )}
       </div>
     </>

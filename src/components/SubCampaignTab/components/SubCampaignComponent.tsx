@@ -17,7 +17,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
   let newActiveSubCP = { ...activeSubCampaign };
 
   const isCPActive = (subCampaign: ISubCamPaign) => {
-    return subCampaign.id === activeSubCampaign.id;
+    return subCampaign.name === activeSubCampaign.name;
   };
 
   const handleTotalAds = (item: ISubCamPaign) => {
@@ -30,7 +30,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
     const newSubCPName = e.target.value;
     newActiveSubCP.name = newSubCPName;
     newCampaign.subCampaigns.map((item) => {
-      if (item.id === newActiveSubCP.id) {
+      if (item.name === newActiveSubCP.name) {
         return (item.name = newActiveSubCP.name);
       } else {
         return item;
@@ -44,7 +44,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
     const newStatus = e.target.checked;
     newActiveSubCP.status = newStatus;
     newCampaign.subCampaigns.map((item) => {
-      if (item.id === newActiveSubCP.id) {
+      if (item.name === newActiveSubCP.name) {
         return (item.status = newActiveSubCP.status);
       } else {
         return item;
@@ -55,18 +55,15 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
   };
 
   const handleAddCampaign = () => {
-    let adsCount = new Array(1);
     newCampaign.subCampaigns.push({
       name: `Chiến dịch con ${newCampaign.subCampaigns.length + 1}`,
       ads: [
         {
           name: "Quảng cáo 1",
           quantity: 0,
-          id: adsCount.length,
         },
       ],
       status: true,
-      id: newCampaign.subCampaigns.length + 1,
     });
     setCampaign(newCampaign);
   };
