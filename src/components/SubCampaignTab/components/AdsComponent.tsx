@@ -117,9 +117,14 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
     }
   };
 
-  const isValidatedAdsQuantity = activeSubCampaign.ads.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.quantity, 0
-  ) > 0
+  const isValidatedAdsQuantity = () => {
+    return (
+      activeSubCampaign.ads.reduce(
+        (accumulator, currentValue) => accumulator + currentValue.quantity,
+        0
+      ) > 0
+    );
+  };
 
   return (
     <div className={css.ads_container}>
@@ -181,9 +186,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
                   value={item.name}
                   onChange={(e) => handleChangeAdsName(e, item.name)}
                   className={
-                    !isValidated && !item.name
-                      ? css.input_ads_error
-                      : ""
+                    !isValidated && !item.name ? css.input_ads_error : ""
                   }
                 />
               </td>
@@ -195,7 +198,7 @@ const AdsComponent: React.FC<IAdsComponentProps> = ({ isValidated }) => {
                   value={item.quantity}
                   onChange={(e) => handleChangeAdsName(e, item.name)}
                   className={
-                    !isValidated && !isValidatedAdsQuantity
+                    !isValidated && !isValidatedAdsQuantity()
                       ? css.input_ads_error
                       : ""
                   }

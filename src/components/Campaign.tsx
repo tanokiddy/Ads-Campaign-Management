@@ -9,23 +9,30 @@ const Campaign: React.FC = () => {
   const [isValidated, setValidate] = useState<boolean>(true);
   const { campaign } = useCamPaign();
   const { name } = campaign.campaign.information;
-  const isValidatedAdsQuantity = campaign.subCampaigns.every(
-    (subCP) =>
-      subCP.ads.reduce(
-        (accumulator, currentValue) => accumulator + currentValue.quantity,
-        0
-      ) > 0
-  );
-  const isValidatedAdsName = campaign.subCampaigns.every((subCP) =>
+
+  const isValidatedAdsQuantity = () => {
+    return campaign.subCampaigns.every(
+      (subCP) =>
+        subCP.ads.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.quantity,
+          0
+        ) > 0
+    );
+  };
+  const isValidatedAdsName = () => {
+    return campaign.subCampaigns.every((subCP) =>
     subCP.ads.every((ads) => !!ads.name)
-  );
-  const isValidatedCPName = campaign.subCampaigns.every(
-    (subCP) => !!subCP.name
-  );
-  const isValidatedAllField =
-    name && isValidatedAdsQuantity && isValidatedAdsName && isValidatedCPName;
+  )
+  };
+  const isValidatedCPName = () => {
+    return campaign.subCampaigns.every(
+      (subCP) => !!subCP.name
+    );
+  }
 
   const handleSubmit = () => {
+    const isValidatedAllField =
+      name && isValidatedAdsQuantity() && isValidatedAdsName() && isValidatedCPName();
     if (isValidatedAllField) {
       setValidate(true);
       alert(JSON.stringify(campaign));
