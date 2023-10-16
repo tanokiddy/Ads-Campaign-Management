@@ -4,7 +4,7 @@ import SubCampaignTab from "./SubCampaignTab";
 import css from "./campaign.module.scss";
 import { useCamPaign } from "../contexts/CampaignContext";
 
-const Campaign = () => {
+const Campaign: React.FC = () => {
   const [isSubCampaign, setSubCampaign] = useState<boolean>(false);
   const [isValidated, setValidate] = useState<boolean>(true);
   const { campaign } = useCamPaign();

@@ -27,11 +27,9 @@ const initialData: ICampaign = {
         {
           name: "Quảng cáo 1",
           quantity: 0,
-          // id: 1,
         },
       ],
       status: true,
-      // id: 1,
     },
   ],
 };
