@@ -30,6 +30,7 @@ const initialData: ICampaign = {
         },
       ],
       status: true,
+      id: 1
     },
   ],
 };

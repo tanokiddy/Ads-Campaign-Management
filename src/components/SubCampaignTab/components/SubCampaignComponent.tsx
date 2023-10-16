@@ -30,7 +30,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
     const newSubCPName = e.target.value;
     newActiveSubCP.name = newSubCPName;
     newCampaign.subCampaigns.map((item) => {
-      if (item.name === newActiveSubCP.name) {
+      if (item.id === newActiveSubCP.id) {
         return (item.name = newActiveSubCP.name);
       } else {
         return item;
@@ -64,6 +64,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
         },
       ],
       status: true,
+      id: newCampaign.subCampaigns.length + 1
     });
     setCampaign(newCampaign);
   };

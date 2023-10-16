@@ -35,7 +35,13 @@ const Campaign: React.FC = () => {
       name && isValidatedAdsQuantity() && isValidatedAdsName() && isValidatedCPName();
     if (isValidatedAllField) {
       setValidate(true);
-      alert(JSON.stringify(campaign));
+      const filteredSubCP = campaign.subCampaigns.map(subCP => {
+        const {id:_, ...newSubCP} = subCP
+        return newSubCP
+      })
+      const newCampaign = {...campaign}
+      newCampaign.subCampaigns = filteredSubCP
+      alert(JSON.stringify(newCampaign));
     } else {
       alert("Vui lòng điền đúng và đầy đủ thông tin");
       setValidate(false);
