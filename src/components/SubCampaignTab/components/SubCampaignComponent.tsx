@@ -77,8 +77,7 @@ const SubCampaignComponent: React.FC<ISubCampaignComponentProps> = ({
 
   const handleIsValidatedAllField = (subCP: ISubCamPaign):boolean => {
     const isValidatedAdsName = subCP.ads.every((ads) => !!ads.name);
-    const isValidatedAdsQuantity = subCP.ads.every((ads) => !!ads.quantity);
-    console.log('!!subCP.name && isValidatedAdsName && isValidatedAdsQuantity: ', !!subCP.name && isValidatedAdsName && isValidatedAdsQuantity);
+    const isValidatedAdsQuantity = subCP.ads.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0) > 0
     return !!subCP.name && isValidatedAdsName && isValidatedAdsQuantity;
   };
 
