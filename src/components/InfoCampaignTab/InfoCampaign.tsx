@@ -1,4 +1,4 @@
-import { useCamPaign } from "../../contexts/CampaignContext";
+import { useCamPaign } from "src/contexts/CampaignContext";
 import css from "./info_campaign.module.scss";
 
 interface IInfoCampaignProps {

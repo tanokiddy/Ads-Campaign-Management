@@ -1,8 +1,8 @@
 import React from "react";
 import css from "../sub_campaign.module.scss";
-import { useCamPaign } from "../../../contexts/CampaignContext";
-import { ISubCamPaign } from "@/types";
-import { CheckIcon } from "../../../icons";
+import { ISubCamPaign } from "src/types";
+import { useCamPaign } from "src/contexts/CampaignContext";
+import { CheckIcon } from "src/icons";
 
 interface ISubCampaignComponentProps {
   isValidated: boolean;

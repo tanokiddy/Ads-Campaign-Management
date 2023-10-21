@@ -1,5 +1,5 @@
-import { CampaignProvider } from "./contexts/CampaignContext";
-import Campaign from "./components/Campaign";
+import { CampaignProvider } from "src/contexts/CampaignContext";
+import Campaign from "src/components/Campaign";
 import './styles/main.scss'
 
 function App() {

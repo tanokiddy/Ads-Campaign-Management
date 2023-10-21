@@ -1,5 +1,5 @@
-import { ICampaign, ISubCamPaign } from "@/types";
 import React, { createContext, useContext, useState } from "react";
+import { ICampaign, ISubCamPaign } from "src/types";
 
 
 interface ISubCamPaignProvider {

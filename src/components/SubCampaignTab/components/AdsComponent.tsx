@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useCamPaign } from "../../../contexts/CampaignContext";
 import css from "../sub_campaign.module.scss";
-import { TrashIcon } from "../../../icons";
+import { useCamPaign } from "src/contexts/CampaignContext";
+import { TrashIcon } from "src/icons";
 
 interface IAdsComponentProps {
   isValidated: boolean;

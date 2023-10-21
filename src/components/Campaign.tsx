@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InfoCampaignTab from "./InfoCampaignTab";
 import SubCampaignTab from "./SubCampaignTab";
 import css from "./campaign.module.scss";
-import { useCamPaign } from "../contexts/CampaignContext";
+import { useCamPaign } from "src/contexts/CampaignContext";
 
 const Campaign: React.FC = () => {
   const [isSubCampaign, setSubCampaign] = useState<boolean>(false);

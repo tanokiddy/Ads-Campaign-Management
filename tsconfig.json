@@ -8,7 +8,7 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "src/*": ["./src/*"],
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,6 +25,6 @@
     "jsx": "preserve",
   },
   "include": [
-    "src",
+    "src/**/*"
   ],
 }
