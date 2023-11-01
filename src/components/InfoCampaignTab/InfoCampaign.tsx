@@ -1,20 +1,23 @@
-import { useCamPaign } from "src/contexts/CampaignContext";
+// import { useCamPaign } from "src/contexts/CampaignContext";
 import css from "./info_campaign.module.scss";
+import { useRecoilState } from "recoil";
+import { initialData } from "../../recoil";
 
 interface IInfoCampaignProps {
   isValidated: boolean;
 }
 
 const InfoCampaign: React.FC<IInfoCampaignProps> = ({ isValidated }) => {
-  const { campaign, setCampaign } = useCamPaign();
+  // const { campaign, setCampaign } = useCamPaign();
+  const [campaign, setCampaign] = useRecoilState(initialData);
+
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isNameInput = e.target.getAttribute("id")?.includes("name");
+    const newCampaign = JSON.parse(JSON.stringify(campaign))
     if (isNameInput) {
-      const newCampaign = { ...campaign };
       newCampaign.campaign.information.name = e.target.value;
       setCampaign(newCampaign);
     } else {
-      const newCampaign = { ...campaign };
       newCampaign.campaign.information.describe = e.target.value;
       setCampaign(newCampaign);
     }

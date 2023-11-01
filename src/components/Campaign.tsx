@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import InfoCampaignTab from "./InfoCampaignTab";
-import SubCampaignTab from "./SubCampaignTab";
+// import SubCampaignTab from "./SubCampaignTab";
 import css from "./campaign.module.scss";
-import { useCamPaign } from "@/contexts/CampaignContext";
+// import { useCamPaign } from "../contexts/CampaignContext";
+import { useRecoilValue } from "recoil";
+import { initialData } from "../recoil";
 
 const Campaign: React.FC = () => {
   const [isSubCampaign, setSubCampaign] = useState<boolean>(false);
   const [isValidated, setValidate] = useState<boolean>(true);
-  const { campaign } = useCamPaign();
+  // const { campaign } = useCamPaign();
+  const campaign = useRecoilValue(initialData)
+  console.log('campaign: ', campaign);
   const { name } = campaign.campaign.information;
 
   const isValidatedAdsQuantity = () => {
@@ -78,7 +82,8 @@ const Campaign: React.FC = () => {
           </button>
         </div>
         {isSubCampaign ? (
-          <SubCampaignTab isValidated={isValidated} />
+          // <SubCampaignTab isValidated={isValidated} />
+          <></>
         ) : (
           <InfoCampaignTab isValidated={isValidated} />
         )}

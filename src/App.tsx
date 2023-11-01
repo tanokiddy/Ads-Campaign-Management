@@ -1,13 +1,16 @@
-import { CampaignProvider } from "src/contexts/CampaignContext";
 import Campaign from "src/components/Campaign";
-import './styles/main.scss'
+import "./styles/main.scss";
+import { RecoilRoot } from "recoil";
+import { CampaignProvider } from "./contexts/CampaignContext";
 
 function App() {
   return (
     <main className="container">
-      <CampaignProvider>
-        <Campaign />
-      </CampaignProvider>
+      <RecoilRoot>
+        <CampaignProvider>
+          <Campaign />
+        </CampaignProvider>
+      </RecoilRoot>
     </main>
   );
 }

@@ -1,0 +1,1 @@
+export const ROOT_STATE_KEY = 'ROOT_STATE_KEY'
